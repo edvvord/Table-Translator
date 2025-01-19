@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Translator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Table Translator</h1>
+    <p>Enter a word to translate using the grid below:</p>
+    
+    <textarea id="inputText" placeholder="Enter text..."></textarea>
+    <button onclick="translateToCoordinates()">Translate to Coordinates</button>
+    <button onclick="translateToText()">Translate to Text</button>
+
+    <textarea id="outputText" placeholder="Translation result..."></textarea>
+
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>А</th>
+                <th>Б</th>
+                <th>В</th>
+                <th>Г</th>
+                <th>Д</th>
+                <th>Е</th>
+                <th>Ё</th>
+                <th>Ж</th>
+                <th>З</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>1</th>
+                <td>а</td>
+                <td>б</td>
+                <td>в</td>
+                <td>г</td>
+                <td>д</td>
+                <td>е</td>
+                <td>ё</td>
+                <td>ж</td>
+                <td>з</td>
+            </tr>
+            <tr>
+                <th>2</th>
+                <td>и</td>
+                <td>й</td>
+                <td>к</td>
+                <td>л</td>
+                <td>м</td>
+                <td>н</td>
+                <td>о</td>
+                <td>п</td>
+                <td>р</td>
+            </tr>
+            <tr>
+                <th>3</th>
+                <td>с</td>
+                <td>т</td>
+                <td>у</td>
+                <td>ф</td>
+                <td>х</td>
+                <td>ц</td>
+                <td>ч</td>
+                <td>ш</td>
+                <td>щ</td>
+            </tr>
+            <tr>
+                <th>4</th>
+                <td>ъ</td>
+                <td>ы</td>
+                <td>ь</td>
+                <td>э</td>
+                <td>ю</td>
+                <td>я</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        const table = [
+            ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з'],
+            ['и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р'],
+            ['с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ'],
+            ['ъ', 'ы', 'ь', 'э', 'ю', 'я']
+        ];
+
+        function translateToCoordinates() {
+            const input = document.getElementById('inputText').value.toLowerCase();
+            let result = '';
+
+            for (const char of input) {
+                let found = false;
+                for (let row = 0; row < table.length; row++) {
+                    for (let col = 0; col < table[row].length; col++) {
+                        if (table[row][col] === char) {
+                            result += `${String.fromCharCode(1040 + col)}${row + 1} `; // А=1040
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (found) break;
+                }
+                if (!found) result += char + ' '; // Keep unknown characters
+            }
+
+            document.getElementById('outputText').value = result.trim();
+        }
+
+        function translateToText() {
+            const input = document.getElementById('inputText').value.toUpperCase().split(' ');
+            let result = '';
+
+            for (const code of input) {
+                if (code.length === 2) {
+                    const col = code.charCodeAt(0) - 1040; // А=1040
+                    const row = parseInt(code[1]) - 1;
+
+                    if (table[row] && table[row][col]) {
+                        result += table[row][col];
+                    } else {
+                        result += '?'; // Invalid coordinate
+                    }
+                } else {
+                    result += code; // Non-coordinate text
+                }
+            }
+
+            document.getElementById('outputText').value = result;
+        }
+    </script>
+</body>
+</html>
