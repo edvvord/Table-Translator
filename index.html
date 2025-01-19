@@ -96,16 +96,11 @@
             let result = '';
 
             for (const char of input) {
-                if (char === ' ') {
-                    result += ' '; // Keep spaces
-                    continue;
-                }
-
                 let found = false;
                 for (let row = 0; row < table.length; row++) {
                     for (let col = 0; col < table[row].length; col++) {
                         if (table[row][col] === char) {
-                            result += `${String.fromCharCode(1040 + col)}${row + 1}`; // А=1040
+                            result += `${String.fromCharCode(1040 + col)}${row + 1} `; // А=1040
                             found = true;
                             break;
                         }
