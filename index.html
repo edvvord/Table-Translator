@@ -97,6 +97,10 @@
 
             for (const char of input) {
                 let found = false;
+                if (char === ' ') {
+                    result += ' '; // Keep spaces
+                    continue;
+                }
                 for (let row = 0; row < table.length; row++) {
                     for (let col = 0; col < table[row].length; col++) {
                         if (table[row][col] === char) {
@@ -114,21 +118,27 @@
         }
 
         function translateToText() {
-            const input = document.getElementById('inputText').value.toUpperCase().split(' ');
+            const input = document.getElementById('inputText').value.toUpperCase();
             let result = '';
+            let temp = '';
 
-            for (const code of input) {
-                if (code.length === 2) {
-                    const col = code.charCodeAt(0) - 1040; // А=1040
-                    const row = parseInt(code[1]) - 1;
+            for (const char of input) {
+                if (char === ' ') {
+                    result += ' '; // Add space when encountered
+                } else if (char >= 'А' && char <= 'Я') {
+                    temp += char;
+                } else if (char === ' ' && temp) {
+                    const col = temp.charCodeAt(0) - 1040; // А=1040
+                    const row = parseInt(temp[1]) - 1;
 
                     if (table[row] && table[row][col]) {
                         result += table[row][col];
                     } else {
                         result += '?'; // Invalid coordinate
                     }
+                    temp = ''; // Reset for the next set
                 } else {
-                    result += code; // Non-coordinate text
+                    result += char; // Non-coordinate text
                 }
             }
 
