@@ -6,125 +6,138 @@
     <title>Translator</title>
     <style>
       body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f8ff;
-    color: #333;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-}
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff;
+        color: #333;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+      }
 
-.container {
-    max-width: 700px;
-    margin: 20px auto;
-    padding: 100px;
-    border-radius: 8px;
-}
+      .container {
+        max-width: 700px;
+        margin: 20px auto;
+        padding: 100px;
+        border-radius: 8px;
+      }
 
-.text-area {
-    width: 100%;
-    height: 80px;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    resize: none;
-    background-color: #f9f9f9;
-}
+      .text-area {
+        width: 100%;
+        height: 80px;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        resize: none;
+        background-color: #f9f9f9;
+      }
 
-button {
-    background-color: #4682b4;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    margin-top: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 20px;
-}
+      button {
+        background-color: #4682b4;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        margin-top: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 20px;
+      }
 
-table {
-    width: 80%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background-color: #fff;
-    border-radius: 5px;
-}
+      table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        border-radius: 5px;
+      }
 
-th, td {
-    border: 1px solid #ccc;
-    padding: 12px 18px;
-    text-align: center;
-    font-size: 16px;
-}
+      th, td {
+        border: 1px solid #ccc;
+        padding: 12px 18px;
+        text-align: center;
+        font-size: 16px;
+      }
 
-th {
-    background-color: #4682b4;
-    color: white;
-}
+      th {
+        background-color: #4682b4;
+        color: white;
+      }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
 
-tr:nth-child(odd) {
-    background-color: #fff;
-}
+      tr:nth-child(odd) {
+        background-color: #fff;
+      }
 
-.icon-button {
-    font-size: 24px;
-    padding: 8px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: black;
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
-}
+      .icon-button {
+        font-size: 24px;
+        padding: 8px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: black;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+      }
 
-.icon-button:hover {
-    color: black;
-}
+      .icon-button:hover {
+        color: black;
+      }
 
-.button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-}
+      .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+      }
 
-.button-container button {
-    margin: 0 15px;
-}
+      .button-container button {
+        margin: 0 15px;
+      }
 
-/* Медиазапросы для мобильных устройств */
-@media (max-width: 600px) {
-    .container {
-        padding: 40px;
-        max-width: 100%;
-    }
+      .copy-button {
+        font-size: 20px;
+        background: transparent;
+        color: black;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+      }
 
-    .text-area {
-        font-size: 14px;
-        height: 60px;
-    }
+      .copy-button:hover {
+        color: #4682b4;
+      }
 
-    button {
-        font-size: 18px;
-        padding: 6px 12px;
-    }
+      /* Медиазапросы для мобильных устройств */
+      @media (max-width: 600px) {
+        .container {
+          padding: 40px;
+          max-width: 100%;
+        }
 
-    table {
-        width: 90%;
-    }
+        .text-area {
+          font-size: 14px;
+          height: 60px;
+        }
 
-    th, td {
-        font-size: 14px;
-        padding: 8px 12px;
-    }
-}
+        button {
+          font-size: 18px;
+          padding: 6px 12px;
+        }
+
+        table {
+          width: 90%;
+        }
+
+        th, td {
+          font-size: 14px;
+          padding: 8px 12px;
+        }
+      }
 
     </style>
 </head>
@@ -139,6 +152,13 @@ tr:nth-child(odd) {
         </div>
         
         <textarea id="outputText" class="text-area" placeholder="Translation result..." readonly></textarea>
+
+        <!-- Кнопка копирования с иконкой -->
+        <div class="button-container">
+            <button class="copy-button" onclick="copyText()">
+                <i class="fa fa-copy">📑</i> <!-- Иконка копирования -->
+            </button>
+        </div>
 
         <table>
             <thead>
@@ -289,6 +309,13 @@ tr:nth-child(odd) {
             } else {
                 translateToText();
             }
+        }
+
+        // Функция копирования текста в буфер обмена
+        function copyText() {
+            const outputText = document.getElementById('outputText');
+            outputText.select();
+            document.execCommand('copy');
         }
     </script>
 
