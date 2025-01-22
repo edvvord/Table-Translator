@@ -3,85 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table Translator</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Translator</title>
+    <style>
+      body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    color: #333;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 100px;
+    border-radius: 8px;
+}
+
+.text-area {
+    width: 100%;
+    height: 80px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
+    background-color: #f9f9f9;
+}
+
+button {
+    background-color: #4682b4;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 12px 18px;
+    text-align: center;
+    font-size: 16px;
+}
+
+th {
+    background-color: #4682b4;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.icon-button {
+    font-size: 24px;
+    padding: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: black;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.icon-button:hover {
+    color: black;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.button-container button {
+    margin: 0 15px;
+}
+
+/* Медиазапросы для мобильных устройств */
+@media (max-width: 600px) {
+    .container {
+        padding: 40px;
+        max-width: 100%;
+    }
+
+    .text-area {
+        font-size: 14px;
+        height: 60px;
+    }
+
+    button {
+        font-size: 18px;
+        padding: 6px 12px;
+    }
+
+    table {
+        width: 90%;
+    }
+
+    th, td {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}
+
+    </style>
 </head>
 <body>
-    <h1>Table Translator</h1>
-    <p>Enter a word to translate using the grid below:</p>
-    
-    <textarea id="inputText" placeholder="Enter text..."></textarea>
-    <button onclick="translateToCoordinates()">Translate to Coordinates</button>
-    <button onclick="translateToText()">Translate to Text</button>
 
-    <textarea id="outputText" placeholder="Translation result..."></textarea>
+    <div class="container">
+        <textarea id="inputText" class="text-area" placeholder="Enter text..."></textarea>
+        
+        <!-- Контейнер с кнопкой переключения -->
+        <div class="button-container">
+            <button class="icon-button" onclick="toggleMode()">⇄</button>
+        </div>
+        
+        <textarea id="outputText" class="text-area" placeholder="Translation result..." readonly></textarea>
 
-    <table>
-        <thead>
-            <tr>
-                <th></th>
-                <th>А</th>
-                <th>Б</th>
-                <th>В</th>
-                <th>Г</th>
-                <th>Д</th>
-                <th>Е</th>
-                <th>Ж</th>
-                <th>З</th>
-                <th>И</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th>1</th>
-                <td>а</td>
-                <td>б</td>
-                <td>в</td>
-                <td>г</td>
-                <td>д</td>
-                <td>е</td>
-                <td>ё</td>
-                <td>ж</td>
-                <td>з</td>
-            </tr>
-            <tr>
-                <th>2</th>
-                <td>и</td>
-                <td>й</td>
-                <td>к</td>
-                <td>л</td>
-                <td>м</td>
-                <td>н</td>
-                <td>о</td>
-                <td>п</td>
-                <td>р</td>
-            </tr>
-            <tr>
-                <th>3</th>
-                <td>с</td>
-                <td>т</td>
-                <td>у</td>
-                <td>ф</td>
-                <td>х</td>
-                <td>ц</td>
-                <td>ч</td>
-                <td>ш</td>
-                <td>щ</td>
-            </tr>
-            <tr>
-                <th>4</th>
-                <td>ъ</td>
-                <td>ы</td>
-                <td>ь</td>
-                <td>э</td>
-                <td>ю</td>
-                <td>я</td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>А</th>
+                    <th>Б</th>
+                    <th>В</th>
+                    <th>Г</th>
+                    <th>Д</th>
+                    <th>Е</th>
+                    <th>Ж</th>
+                    <th>З</th>
+                    <th>И</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>1</th>
+                    <td>а</td>
+                    <td>б</td>
+                    <td>в</td>
+                    <td>г</td>
+                    <td>д</td>
+                    <td>е</td>
+                    <td>ё</td>
+                    <td>ж</td>
+                    <td>з</td>
+                </tr>
+                <tr>
+                    <th>2</th>
+                    <td>и</td>
+                    <td>й</td>
+                    <td>к</td>
+                    <td>л</td>
+                    <td>м</td>
+                    <td>н</td>
+                    <td>о</td>
+                    <td>п</td>
+                    <td>р</td>
+                </tr>
+                <tr>
+                    <th>3</th>
+                    <td>с</td>
+                    <td>т</td>
+                    <td>у</td>
+                    <td>ф</td>
+                    <td>х</td>
+                    <td>ц</td>
+                    <td>ч</td>
+                    <td>ш</td>
+                    <td>щ</td>
+                </tr>
+                <tr>
+                    <th>4</th>
+                    <td>ъ</td>
+                    <td>ы</td>
+                    <td>ь</td>
+                    <td>э</td>
+                    <td>ю</td>
+                    <td>я</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <script>
         const table = [
@@ -91,6 +216,18 @@
             ['ъ', 'ы', 'ь', 'э', 'ю', 'я']
         ];
 
+        let isCoordinateMode = true; // Начальный режим — координаты
+
+        // Обработчик ввода текста
+        document.getElementById('inputText').addEventListener('input', function() {
+            if (isCoordinateMode) {
+                translateToCoordinates();
+            } else {
+                translateToText();
+            }
+        });
+
+        // Функция перевода в координаты
         function translateToCoordinates() {
             const input = document.getElementById('inputText').value.toLowerCase();
             let result = '';
@@ -100,41 +237,60 @@
                 for (let row = 0; row < table.length; row++) {
                     for (let col = 0; col < table[row].length; col++) {
                         if (table[row][col] === char) {
-                            result += `${String.fromCharCode(1040 + col)}${row + 1} `; // А=1040
+                            result += `${String.fromCharCode(1040 + col)}${row + 1} `;
                             found = true;
                             break;
                         }
                     }
                     if (found) break;
                 }
-                if (!found) result += char + ' '; // Keep unknown characters
+                if (!found) result += char + ' ';
             }
 
             document.getElementById('outputText').value = result.trim();
         }
 
+        // Функция перевода из координат в текст
         function translateToText() {
-    const input = document.getElementById('inputText').value.toUpperCase().split(' ');
-    let result = '';
+            const input = document.getElementById('inputText').value.toUpperCase().split(' ');
+            let result = '';
 
-    for (const code of input) {
-        if (code.length === 2) {
-            const col = code.charCodeAt(0) - 1040; // А=1040
-            const row = parseInt(code[1]) - 1;
+            for (const code of input) {
+                if (code.length === 2) {
+                    const col = code.charCodeAt(0) - 1040; // А=1040
+                    const row = parseInt(code[1]) - 1;
 
-            if (table[row] && table[row][col]) {
-                result += table[row][col];
-            } else {
-                result += '?'; // Invalid coordinate
+                    if (table[row] && table[row][col]) {
+                        result += table[row][col];
+                    } else {
+                        result += '?'; // Некорректная координата
+                    }
+                } else {
+                    result += ' ' + code; // Оставить пробелы
+                }
             }
-        } else {
-            result += ' ' + code; // Keep spaces
+
+            document.getElementById('outputText').value = result;
         }
-    }
 
-    document.getElementById('outputText').value = result;
-}
+        // Функция переключения режима и реверсирования текста
+        function toggleMode() {
+            isCoordinateMode = !isCoordinateMode;
+            const inputText = document.getElementById('inputText').value;
+            const outputText = document.getElementById('outputText').value;
 
+            // Меняем местами текст и сразу вызываем функцию перевода
+            document.getElementById('inputText').value = outputText;
+            document.getElementById('outputText').value = inputText;
+
+            // Перевод текста в соответствующий режим
+            if (isCoordinateMode) {
+                translateToCoordinates();
+            } else {
+                translateToText();
+            }
+        }
     </script>
+
 </body>
 </html>
